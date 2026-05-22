@@ -1,19 +1,33 @@
+WITH titles AS (
+
+    SELECT
+        show_id,
+        release_year
+    FROM {{ ref('fct_netflix_title') }}
+
+),
+
+genres AS (
+
+    SELECT
+        show_id,
+        genre
+    FROM {{ ref('dim_genre') }}
+
+)
+
 SELECT
     t.release_year,
     g.genre,
+    COUNT(*) AS genre_count
 
-    COUNT(DISTINCT t.show_id) AS total_titles
-
-FROM {{ ref('fct_netflix_title') }} t
-LEFT JOIN {{ ref('dim_genre') }} g
+FROM titles t
+LEFT JOIN genres g
     ON t.show_id = g.show_id
-
-WHERE g.genre IS NOT NULL
 
 GROUP BY
     t.release_year,
     g.genre
 
 ORDER BY
-    t.release_year,
-    total_titles DESC
+    genre_count DESC

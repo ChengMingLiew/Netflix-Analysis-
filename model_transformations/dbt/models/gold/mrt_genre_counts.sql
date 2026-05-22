@@ -12,3 +12,4 @@ GROUP BY
 
 ORDER BY
     total_titles DESC
+    

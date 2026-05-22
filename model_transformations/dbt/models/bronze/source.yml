@@ -1,0 +1,20 @@
+version: 2
+
+sources:
+  - name: postgres_db
+    database: netflix_db
+    schema: bronze
+    tables:
+      - name: raw_netflix_titles
+        description: "Raw data containing information of TV Serices and Movies listed on netflix"
+        columns:
+          - name: show_id
+          - name: type
+          - name: title
+          - name: director
+          - name: casts
+          - name: country
+          - name: date_added
+          - name: release_year
+          - name: rating
+          - name: duration

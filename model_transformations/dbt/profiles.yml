@@ -1,0 +1,12 @@
+dbt_netflix:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: destination_postgres_db
+      user: "{{ env_var('POSTGRES_USER') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD') }}"
+      database: netflix_db
+      schema: public
+      port: 5432
+      threads: 4

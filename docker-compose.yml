@@ -31,6 +31,27 @@ services:
     env_file:
       - .env
 
+  dbt:
+    image: ghcr.io/dbt-labs/dbt-postgres:1.7.4
+    networks:
+      - elt_network
+    volumes:
+      - ./model_transformations/dbt:/usr/app/dbt
+    environment:
+      DBT_PROFILE: dbt_netflix
+      DBT_TARGET: dev
+    depends_on:
+      destination_postgres_db:
+        condition: service_healthy
+      ingestion:
+        condition: service_completed_successfully
+    entrypoint: ["sh", "-c"]
+    command: >
+      "dbt deps --project-dir /usr/app/dbt --profiles-dir /usr/app/dbt &&
+       dbt run --project-dir /usr/app/dbt --profiles-dir /usr/app/dbt"
+    env_file:
+      - .env 
+
 networks:
   elt_network:
     driver: bridge

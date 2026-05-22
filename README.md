@@ -22,17 +22,17 @@ Getting Started
 1. Ensure that you have docker installed in your machine.
 2. Clone this repository and navigate to the project directory.
 3. Make sure to configure your environment variables in a .env file:
-  - POSTGRES_USER: This can be configured to be anything.
-  - POSTGRES_PASSWORD: This can be configured to be anything.
-  - POSTGRES_DB: This can be configured to be anything.
-  - POSTGRES_SERVICE: This has to be the same as the postgres service in the docker-compose.yml.
-  - POSTGRES_PORT: This can configured to be anything, I would recommend 5432.
+   - POSTGRES_USER: This can be configured to be anything.
+   - POSTGRES_PASSWORD: This can be configured to be anything.
+   - POSTGRES_DB: This can be configured to be anything.
+   - POSTGRES_SERVICE: This has to be the same as the postgres service in the docker-compose.yml.
+   - POSTGRES_PORT: This can configured to be anything, I would recommend 5432.
 5. Run `docker compose up --build`
 6. After Metabase has started to run, we can access localhost:3000 in our web browser to do our visualisations.
 7. Go through steps 1 - 4 of the Metabase Login.
-  - Choose PostgreSQL when prompted 'Add your data'.
-  - The 'Display Name' can be up to the users choosing.
-  - The 'Host' should be the same as the name of our PostgreSQL service in docker.
-  - The 'Port' should be the same as the one in our .env file.
-  - 'User' and 'Password' are referring to the PostgreSQL database user and password we have configured in the .env file.
+   - Choose PostgreSQL when prompted 'Add your data'.
+   - The 'Display Name' can be up to the users choosing.
+   - The 'Host' should be the same as the name of our PostgreSQL service in docker.
+   - The 'Port' should be the same as the one in our .env file.
+   - 'User' and 'Password' are referring to the PostgreSQL database user and password we have configured in the .env file.
 8. Complete! Now you can create your own visualisations.

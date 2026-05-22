@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: staging_netflix_titles
+    description: "The raw Netflix data has been transformed into cleaned and typed versions."
+    columns:
+      - name: show_id
+        tests:
+          - not_null
+          - unique
+      - name: type
+        tests:
+          - accepted_values:
+              values: ["Movie", "TV Show"]
+      - name: title
+      - name: director
+      - name: casts
+      - name: country
+      - name: date_added
+      - name: release_year
+      - name: rating
+      - name: duration_minutes
+      - name: duration_seasons

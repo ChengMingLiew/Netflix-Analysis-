@@ -12,5 +12,7 @@ CREATE TABLE bronze.raw_netflix_titles(
     date_added      TIMESTAMP,
     release_year    INT,
     rating          VARCHAR(256),
-    duration        VARCHAR(256)
+    duration        VARCHAR(256),
+    listed_in       VARCHAR(256),
+    description     VARCHAR(256)
 );

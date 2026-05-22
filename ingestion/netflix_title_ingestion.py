@@ -18,6 +18,8 @@ csv_file = os.path.join(path, "netflix_titles.csv")
 
 netflix_df = pd.read_csv("./netflix_data/netflix_titles.csv")
 
+netflix_df.rename(columns={'cast': 'casts'}, inplace=True)
+
 netflix_df.to_sql(
     con=engine,
     name="raw_netflix_titles",

@@ -19,5 +19,9 @@ models:
       - name: date_added
       - name: release_year
       - name: rating
+      - name: duration
       - name: duration_minutes
       - name: duration_seasons
+      - name: genres_list
+      - name: description
+      - name: loaded_at

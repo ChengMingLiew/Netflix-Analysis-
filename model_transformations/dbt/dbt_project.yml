@@ -30,11 +30,8 @@ clean-targets: # directories to be removed by `dbt clean`
 models:
   model_transformations:
     # Config indicated by + and applies to all files under models/example/
-    bronze:
-      +materialized: table
-      +schema: bronze
     silver:
-      +materialized: table
+      +materialized: view
       +schema: silver
     gold:
       +materialized: table

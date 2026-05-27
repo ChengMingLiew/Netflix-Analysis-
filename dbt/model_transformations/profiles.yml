@@ -1,0 +1,11 @@
+model_transformations:
+  outputs:
+    dev:
+      catalog: my_project
+      host: dbc-cb300aaa-6061.cloud.databricks.com
+      http_path: /sql/1.0/warehouses/e12f5e12dcf27c72
+      schema: default
+      threads: 1
+      token: "{{ env_var('DATABRICKS_TOKEN') }}"
+      type: databricks
+  target: dev

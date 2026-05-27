@@ -11,11 +11,11 @@ models:
       - name: type
         tests:
           - accepted_values:
-              values: ["Movie", "TV Show"]
+              values: ["Movie", "Tv Show"]
       - name: title
       - name: director
-      - name: casts
-      - name: country
+      - name: actors
+      - name: countries
       - name: date_added
       - name: release_year
       - name: rating

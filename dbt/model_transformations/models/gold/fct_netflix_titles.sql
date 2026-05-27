@@ -4,11 +4,11 @@ WITH staging AS (
 
 SELECT
     show_id,
-    TO_CHAR(date_added, 'YYYYMMDD')::INT    AS date_key,
+    CAST(DATE_FORMAT(date_added, 'yyyyMMdd') AS INT)  AS date_key,
     title,
     type,
     director,
-    country,
+    countries,
     rating,
     release_year,
     duration_minutes,

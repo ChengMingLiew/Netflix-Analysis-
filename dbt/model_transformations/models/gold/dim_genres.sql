@@ -1,8 +1,9 @@
 WITH exploded AS (
     SELECT
         show_id,
-        TRIM(UNNEST(STRING_TO_ARRAY(genres_list, ','))) AS genre
+        TRIM(genre.value) AS genre
     FROM {{ ref('staging_netflix_titles') }}
+    LATERAL VIEW EXPLODE(SPLIT(genres_list, ',')) genre AS value
     WHERE genres_list IS NOT NULL
 )
 

@@ -1,0 +1,87 @@
+version: 2
+
+models:
+  - name: fct_netflix_titles
+    description: "Netflix fact table with cleaned and typed data"
+    columns:
+      - name: show_id
+        tests:
+          - unique
+          - not_null
+      - name: date_key
+      - name: title
+        tests:
+          - not_null
+      - name: type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Movie", "Tv Show"]
+      - name: director
+      - name: countries
+      - name: rating
+      - name: release_year
+      - name: duration_minutes
+      - name: duration_seasons
+      - name: loaded_at
+        tests:
+          - not_null
+  - name: dim_date
+    columns:
+      - name: date_key
+        tests:
+          - unique
+          - not_null
+      - name: full_date
+        tests:
+          - unique
+          - not_null
+      - name: year
+        tests:
+          - not_null
+      - name: quarter
+        tests:
+          - not_null
+      - name: month
+        tests:
+          - not_null
+      - name: month_name
+        tests:
+          - not_null
+      - name: day_of_month
+        tests:
+          - not_null
+      - name: day_of_week
+        tests:
+          - not_null
+      - name: day_name
+        tests:
+          - not_null
+      - name: is_weekend
+        tests:
+          - not_null
+  - name: dim_casts
+    columns:
+      - name: actor_key
+        tests:
+          - unique
+          - not_null
+      - name: show_id
+        tests:
+          - not_null
+      - name: actor
+        tests:
+          - not_null
+
+  - name: dim_genres
+    columns:
+      - name: genre_key
+        tests:
+          - unique
+          - not_null
+      - name: show_id
+        tests:
+          - not_null
+      - name: genre
+        tests:
+          - not_null

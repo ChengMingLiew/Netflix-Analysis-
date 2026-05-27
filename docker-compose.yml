@@ -1,68 +1,27 @@
 services:
-  destination_postgres_db:
-    networks:
-      - elt_network
-    image: postgres:16
-    environment:
-      POSTGRES_DB: $POSTGRES_DB
-      POSTGRES_USER: $POSTGRES_USER
-      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-    volumes:
-      - ./source_init/init.sql:/docker-entrypoint-initdb.d/init.sql
-    healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
-      interval: 10s
-      retries: 5
-      start_period: 30s
-      timeout: 10s
-    env_file:
-      - .env
   
   ingestion:
     networks:
       - elt_network
     build: ./ingestion
-    depends_on:
-      destination_postgres_db:
-        condition: service_healthy
-        restart: true
     volumes:
-      - ./netflix_data:/app/netflix_data
-    env_file:
-      - .env
+      - ./dbt/model_transformations/seeds:/app/model_transformations/seeds
 
   dbt:
-    image: ghcr.io/dbt-labs/dbt-postgres:1.7.4
+    build: ./dbt
     networks:
       - elt_network
     volumes:
-      - ./model_transformations/dbt:/usr/app/dbt
-    environment:
-      DBT_PROFILE: dbt_netflix
-      DBT_TARGET: dev
+      - ./dbt/model_transformations:/usr/app/dbt
     depends_on:
-      destination_postgres_db:
-        condition: service_healthy
       ingestion:
         condition: service_completed_successfully
     entrypoint: ["sh", "-c"]
     command: >
       "dbt deps --project-dir /usr/app/dbt --profiles-dir /usr/app/dbt &&
-       dbt run --project-dir /usr/app/dbt --profiles-dir /usr/app/dbt"
-    env_file:
-      - .env
-
-  metabase:
-    image: metabase/metabase:v0.60.1
-    container_name: metabase
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    depends_on:
-      dbt:
-        condition: service_completed_successfully
-    networks:
-      - elt_network
+      dbt seed --project-dir /usr/app/dbt --profiles-dir /usr/app/dbt &&
+      dbt run --project-dir /usr/app/dbt --profiles-dir /usr/app/dbt &&
+      dbt test --project-dir /usr/app/dbt --profiles-dir /usr/app/dbt"
 
 networks:
   elt_network:

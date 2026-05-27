@@ -1,4 +1,4 @@
 sqlalchemy
 psycopg2-binary
-kagglehub
+kagglehub==1.0.0
 pandas
